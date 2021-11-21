@@ -94,7 +94,7 @@ public class JavaSocketFileTransferClient {
                 System.exit(1);
             }
         } else {
-            System.out.println("not yet implemented '" + commandString + "'");
+            System.out.println("Trying '" + commandString + "'");
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(fileName);
                 download(fileOutputStream);
