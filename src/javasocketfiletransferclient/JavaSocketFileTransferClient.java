@@ -83,7 +83,7 @@ public class JavaSocketFileTransferClient {
         }
 
         if (commandUpload) {
-            System.out.println("Trying '" + commandString + "'");
+            System.out.println("Uploading");
             try {
                 FileInputStream fileInputStream = new FileInputStream(fileName);
                 upload(fileInputStream);
@@ -94,7 +94,7 @@ public class JavaSocketFileTransferClient {
                 System.exit(1);
             }
         } else {
-            System.out.println("Trying '" + commandString + "'");
+            System.out.println("Downloading");
             try {
                 FileOutputStream fileOutputStream = new FileOutputStream(fileName);
                 download(fileOutputStream);
