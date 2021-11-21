@@ -95,7 +95,6 @@ public class JavaSocketFileTransferClient {
         } else {
             System.out.println("not yet implemented '" + commandString + "'");
         }
-        chat(); // perform chatting loop
 
         try { // close resources
             socket.close();
@@ -116,37 +115,6 @@ public class JavaSocketFileTransferClient {
         } catch (IOException ex) {
             System.out.println(ex);
             System.exit(1);
-        }
-    }
-
-    public static void chat() {
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            try {
-                String lineInput = sc.nextLine();
-
-                if (lineInput.length() > 0) { // if client types something
-                    outStream.writeBytes(lineInput); // send message to server
-                    outStream.write(13); // carriage return
-                    outStream.write(10); // line feed
-                    outStream.flush(); // flush the stream line
-
-                    if (lineInput.equalsIgnoreCase("quit")) {
-                        System.exit(0); // stop client chatting as well.
-                    }
-
-                    // print any message received from server
-                    int inByte;
-                    System.out.print("Server>>> ");
-                    while ((inByte = inStream.read()) != '\n') {
-                        System.out.write(inByte);
-                    }
-                    System.out.println();
-                }
-            } catch (IOException e) {
-                // handle IO exception here
-            }
         }
     }
 
