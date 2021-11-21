@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -94,6 +95,14 @@ public class JavaSocketFileTransferClient {
             }
         } else {
             System.out.println("not yet implemented '" + commandString + "'");
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                download(fileOutputStream);
+            } catch (FileNotFoundException ex) {
+                // Show message that the file isn't found
+                System.out.println(ex);
+                System.exit(1);
+            }
         }
 
         try { // close resources
@@ -118,4 +127,25 @@ public class JavaSocketFileTransferClient {
         }
     }
 
+    private static void download(FileOutputStream fileOutputStream) {
+        int count = 0;
+        byte[] buffer = new byte[1024];
+        try {
+            while ((count = inStream.read(buffer)) > 0) {
+                fileOutputStream.write(buffer, 0, count);
+            }
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
+            System.exit(1);
+        }
+    }
+
+    /*
+    
+    
+                
+    
+     */
 }
