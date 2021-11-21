@@ -31,15 +31,31 @@ static Socket socket;
 	static DataInputStream inStream; // input stream from server
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length != 4) {
 			System.out.println("Incorrect arguments used!");
-			System.out.println("Usage: java ClientClass hostName port#");
+			System.out.println("Usage: java -jar \"JavaSocketFileTransferClient.jar\" hostName port# download filename");
+			System.out.println("or:    java -jar \"JavaSocketFileTransferClient.jar\" hostName port# upload filename");
+			System.out.println("e.g.:  java -jar \"JavaSocketFileTransferClient.jar\" hostName port# upload filename");
 			System.exit(1);
 		}
 
 		String host = args[0]; // get host
 		int port = Integer.valueOf(args[1]).intValue(); // get port #
-
+                String commandString = args[2];
+                String filename = args[3];
+                boolean commandUpload = false;
+                
+                if (commandString.equals("upload")) {
+                    commandUpload = true;
+                } else if (commandString.equals("download")) {
+                    commandUpload = false;
+                } else {
+                        System.out.println("Unrecognised command '" + commandString + "'");
+			System.out.println("Must be upload or download");
+			System.exit(1);
+                }
+               
+                
 		try {
 			// create socket for connection
 			socket = new Socket(host, port);
